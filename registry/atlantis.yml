@@ -1,21 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production
+  name: atlantis-components
   namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "40"
+    argocd.argoproj.io/sync-wave: "50"
 spec:
   project: default
   source:
-    repoURL: git@github.com/converge/gitops
-    path: components/production
+    repoURL: https://github.com/converge/gitops
+    path: components/atlantis
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: production
+    namespace: atlantis
   syncPolicy:
     automated:
       prune: true
